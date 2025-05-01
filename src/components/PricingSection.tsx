@@ -37,7 +37,7 @@ interface PricingPlan {
 }
 
 const PricingSection: React.FC = () => {
-  const { t, dir } = useLanguage();
+  const { t, dir, language } = useLanguage();
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
   
   const createPlans = (period: 'monthly' | 'yearly'): PricingPlan[] => {
