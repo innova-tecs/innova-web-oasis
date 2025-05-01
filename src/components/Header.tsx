@@ -2,20 +2,26 @@
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Sun, Moon } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTheme } from '@/context/ThemeContext';
 
 const Header: React.FC = () => {
   const { t, language, setLanguage, dir } = useLanguage();
+  const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleLanguage = () => {
     setLanguage(language === 'ar' ? 'en' : 'ar');
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
   return (
@@ -44,8 +50,11 @@ const Header: React.FC = () => {
           <a href="#pricing" className="text-foreground hover:text-primary transition-colors">
             {t('pricing')}
           </a>
-          <a href="#testimonials" className="text-foreground hover:text-primary transition-colors">
-            {t('testimonials')}
+          <a href="#about" className="text-foreground hover:text-primary transition-colors">
+            {t('about')}
+          </a>
+          <a href="#contact" className="text-foreground hover:text-primary transition-colors">
+            {t('contact')}
           </a>
           <a href="#faq" className="text-foreground hover:text-primary transition-colors">
             {t('faq')}
@@ -53,6 +62,16 @@ const Header: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-4">
+          {/* Theme Toggle */}
+          <Button variant="ghost" size="icon" className="rounded-full" onClick={toggleTheme}>
+            {theme === 'dark' ? (
+              <Sun className="h-[1.2rem] w-[1.2rem]" />
+            ) : (
+              <Moon className="h-[1.2rem] w-[1.2rem]" />
+            )}
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+
           {/* Language Toggle */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -117,11 +136,18 @@ const Header: React.FC = () => {
               {t('pricing')}
             </a>
             <a 
-              href="#testimonials" 
+              href="#about" 
               className="text-foreground hover:text-primary transition-colors px-4 py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {t('testimonials')}
+              {t('about')}
+            </a>
+            <a 
+              href="#contact" 
+              className="text-foreground hover:text-primary transition-colors px-4 py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t('contact')}
             </a>
             <a 
               href="#faq" 

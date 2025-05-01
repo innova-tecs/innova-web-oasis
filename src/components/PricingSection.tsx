@@ -10,7 +10,8 @@ import {
   Globe, 
   Shield, 
   ArrowRight, 
-  LifeBuoy 
+  LifeBuoy,
+  ExternalLink 
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -34,11 +35,15 @@ interface PricingPlan {
   description: string;
   mostPopular?: boolean;
   features: PlanFeature[];
+  whatsAppLink: string;
 }
 
 const PricingSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
+  
+  // Example WhatsApp number - replace with actual number
+  const whatsAppNumber = "971500000000";
   
   const createPlans = (period: 'monthly' | 'yearly'): PricingPlan[] => {
     const multiplier = period === 'yearly' ? 0.8 : 1; // 20% discount for yearly
@@ -60,7 +65,8 @@ const PricingSection: React.FC = () => {
           { name: t('pricing.ssl'), included: true },
           { name: t('pricing.backups'), included: false },
           { name: t('pricing.support'), included: 'Email' },
-        ]
+        ],
+        whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن باقة ${language === 'ar' ? 'الأساسية' : 'Basic'}`)}`
       },
       {
         name: t('pricing.standard'),
@@ -79,7 +85,8 @@ const PricingSection: React.FC = () => {
           { name: t('pricing.ssl'), included: true },
           { name: t('pricing.backups'), included: 'Weekly' },
           { name: t('pricing.support'), included: '24/7 Chat' },
-        ]
+        ],
+        whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن باقة ${language === 'ar' ? 'القياسية' : 'Standard'}`)}`
       },
       {
         name: t('pricing.premium'),
@@ -97,7 +104,8 @@ const PricingSection: React.FC = () => {
           { name: t('pricing.ssl'), included: true },
           { name: t('pricing.backups'), included: 'Daily' },
           { name: t('pricing.support'), included: '24/7 Priority' },
-        ]
+        ],
+        whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن باقة ${language === 'ar' ? 'المتميزة' : 'Premium'}`)}`
       },
       {
         name: t('pricing.business'),
@@ -115,7 +123,8 @@ const PricingSection: React.FC = () => {
           { name: t('pricing.ssl'), included: true },
           { name: t('pricing.backups'), included: 'Daily' },
           { name: t('pricing.support'), included: '24/7 Priority' },
-        ]
+        ],
+        whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن باقة ${language === 'ar' ? 'الأعمال' : 'Business'}`)}`
       },
       {
         name: t('pricing.enterprise'),
@@ -133,24 +142,9 @@ const PricingSection: React.FC = () => {
           { name: t('pricing.ssl'), included: true },
           { name: t('pricing.backups'), included: 'Real-time' },
           { name: t('pricing.support'), included: '24/7 VIP' },
-        ]
-      },
-      {
-        name: t('pricing.custom'),
-        price: t('pricing.custom.price'),
-        storage: t('pricing.custom.storage'),
-        bandwidth: t('pricing.custom.bandwidth'),
-        domains: t('pricing.custom.domains'),
-        description: 'Tailored solutions for special requirements',
-        features: [
-          { name: t('pricing.storage'), included: t('pricing.custom.storage') },
-          { name: t('pricing.bandwidth'), included: t('pricing.custom.bandwidth') },
-          { name: t('pricing.domains'), included: t('pricing.custom.domains') },
-          { name: t('pricing.ssl'), included: true },
-          { name: t('pricing.backups'), included: 'Custom' },
-          { name: t('pricing.support'), included: 'Dedicated Team' },
-        ]
-      },
+        ],
+        whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن باقة ${language === 'ar' ? 'المؤسسات' : 'Enterprise'}`)}`
+      }
     ];
   };
   
@@ -177,11 +171,11 @@ const PricingSection: React.FC = () => {
         </Tabs>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {plans.slice(0, 6).map((plan, index) => (
+          {plans.slice(0, 5).map((plan, index) => (
             <div
               key={index}
               className={cn(
-                "pricing-card relative border border-border rounded-xl overflow-hidden",
+                "pricing-card relative border border-border rounded-xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl",
                 plan.mostPopular ? "border-primary shadow-lg shadow-primary/10" : ""
               )}
             >
@@ -215,18 +209,20 @@ const PricingSection: React.FC = () => {
                   </div>
                 )}
                 
-                <Button
-                  className={cn(
-                    "w-full mb-6",
-                    plan.mostPopular
-                      ? "bg-gradient-to-r from-innova-purple to-innova-blue hover:opacity-90"
-                      : ""
-                  )}
-                  variant={plan.mostPopular ? "default" : "outline"}
-                >
-                  {t('pricing.cta')}
-                  {dir === 'rtl' ? null : <ArrowRight className="ms-2 h-4 w-4" />}
-                </Button>
+                <a href={plan.whatsAppLink} target="_blank" rel="noopener noreferrer" className="block w-full mb-6">
+                  <Button
+                    className={cn(
+                      "w-full group overflow-hidden relative",
+                      plan.mostPopular
+                        ? "bg-gradient-to-r from-innova-purple to-innova-blue hover:opacity-90"
+                        : ""
+                    )}
+                    variant={plan.mostPopular ? "default" : "outline"}
+                  >
+                    {language === 'ar' ? 'احجز الآن' : 'Book Now'}
+                    <ExternalLink className={`${dir === 'rtl' ? 'mr-2' : 'ml-2'} h-4 w-4 transition-transform group-hover:translate-x-1`} />
+                  </Button>
+                </a>
                 
                 <ul className="space-y-3">
                   {plan.features.map((feature, fIndex) => (
