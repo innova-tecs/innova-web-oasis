@@ -1,93 +1,124 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '@/context/LanguageContext';
+import { Facebook, Twitter, Instagram, Mail, Phone } from 'lucide-react';
 
 const Footer: React.FC = () => {
-  const { t } = useLanguage();
-  
+  const { t, language } = useLanguage();
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-secondary pt-16 pb-8 text-secondary-foreground">
+    <footer className="bg-secondary/10 pt-16 pb-6 border-t border-border">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              {/* INNOVA Logo */}
+            <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-full bg-gradient-to-r from-innova-purple to-innova-blue flex items-center justify-center text-white font-bold">
                 I
               </div>
-              <span className="text-xl font-bold text-white">
+              <span className="text-xl font-bold bg-gradient-to-r from-innova-purple to-innova-blue bg-clip-text text-transparent">
                 INNOVA
               </span>
-            </div>
+            </Link>
             <p className="text-muted-foreground mb-4">
-              {t('language') === 'ar' 
-                ? 'نوفر حلول استضافة موثوقة وسريعة لمساعدة عملائنا على تحقيق النجاح عبر الإنترنت.'
-                : 'We provide reliable and fast hosting solutions to help our customers achieve success online.'}
+              {language === 'ar' 
+                ? 'شركة رائدة في مجال استضافة المواقع وخدمات الإنترنت منذ 2010.'
+                : 'Leading web hosting and internet services company since 2010.'}
             </p>
+            <div className="flex space-x-4 rtl:space-x-reverse">
+              <a 
+                href="#" 
+                className="w-9 h-9 rounded-full bg-background border border-border flex items-center justify-center transition-colors hover:bg-primary/10"
+              >
+                <Facebook size={18} />
+              </a>
+              <a 
+                href="#" 
+                className="w-9 h-9 rounded-full bg-background border border-border flex items-center justify-center transition-colors hover:bg-primary/10"
+              >
+                <Twitter size={18} />
+              </a>
+              <a 
+                href="#" 
+                className="w-9 h-9 rounded-full bg-background border border-border flex items-center justify-center transition-colors hover:bg-primary/10"
+              >
+                <Instagram size={18} />
+              </a>
+            </div>
           </div>
           
           <div>
-            <h4 className="text-lg font-bold mb-4">{t('language') === 'ar' ? 'روابط سريعة' : 'Quick Links'}</h4>
+            <h3 className="font-bold text-lg mb-4">{language === 'ar' ? 'روابط سريعة' : 'Quick Links'}</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-white transition-colors">{t('home')}</a></li>
-              <li><a href="#features" className="text-muted-foreground hover:text-white transition-colors">{t('features')}</a></li>
-              <li><a href="#pricing" className="text-muted-foreground hover:text-white transition-colors">{t('pricing')}</a></li>
-              <li><a href="#testimonials" className="text-muted-foreground hover:text-white transition-colors">{t('testimonials')}</a></li>
-              <li><a href="#faq" className="text-muted-foreground hover:text-white transition-colors">{t('faq')}</a></li>
+              <li>
+                <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
+                  {t('home')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/features" className="text-muted-foreground hover:text-primary transition-colors">
+                  {t('features')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/pricing" className="text-muted-foreground hover:text-primary transition-colors">
+                  {t('pricing')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">
+                  {t('contact')}
+                </Link>
+              </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-lg font-bold mb-4">{t('language') === 'ar' ? 'خدماتنا' : 'Our Services'}</h4>
+            <h3 className="font-bold text-lg mb-4">{language === 'ar' ? 'الخدمات' : 'Services'}</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-white transition-colors">
-                {t('language') === 'ar' ? 'استضافة مشتركة' : 'Shared Hosting'}
-              </a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-white transition-colors">
-                {t('language') === 'ar' ? 'استضافة VPS' : 'VPS Hosting'}
-              </a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-white transition-colors">
-                {t('language') === 'ar' ? 'استضافة مخصصة' : 'Dedicated Hosting'}
-              </a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-white transition-colors">
-                {t('language') === 'ar' ? 'استضافة ووردبريس' : 'WordPress Hosting'}
-              </a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-white transition-colors">
-                {t('language') === 'ar' ? 'تسجيل النطاقات' : 'Domain Registration'}
-              </a></li>
+              <li>
+                <Link to="/features" className="text-muted-foreground hover:text-primary transition-colors">
+                  {language === 'ar' ? 'استضافة المواقع' : 'Web Hosting'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/features" className="text-muted-foreground hover:text-primary transition-colors">
+                  {language === 'ar' ? 'استضافة VPS' : 'VPS Hosting'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/features" className="text-muted-foreground hover:text-primary transition-colors">
+                  {language === 'ar' ? 'استضافة سحابية' : 'Cloud Hosting'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/features" className="text-muted-foreground hover:text-primary transition-colors">
+                  {language === 'ar' ? 'خوادم مخصصة' : 'Dedicated Servers'}
+                </Link>
+              </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-lg font-bold mb-4">{t('contact')}</h4>
-            <ul className="space-y-2">
-              <li className="text-muted-foreground">
-                {t('language') === 'ar' ? 'البريد الإلكتروني: support@innova.com' : 'Email: support@innova.com'}
+            <h3 className="font-bold text-lg mb-4">{language === 'ar' ? 'معلومات الاتصال' : 'Contact Info'}</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <Mail size={18} className="flex-shrink-0 mt-1" />
+                <span className="text-muted-foreground">info@innova.com</span>
               </li>
-              <li className="text-muted-foreground">
-                {t('language') === 'ar' ? 'الهاتف: +966 123 456 789' : 'Phone: +966 123 456 789'}
-              </li>
-              <li className="text-muted-foreground">
-                {t('language') === 'ar' ? 'العنوان: الرياض، المملكة العربية السعودية' : 'Address: Riyadh, Saudi Arabia'}
+              <li className="flex items-start gap-3">
+                <Phone size={18} className="flex-shrink-0 mt-1" />
+                <span className="text-muted-foreground">+971 50 000 0000</span>
               </li>
             </ul>
           </div>
         </div>
         
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">
-            &copy; {currentYear} INNOVA. {t('footer.rights')}
+        <div className="pt-6 border-t border-border text-center text-sm text-muted-foreground">
+          <p>
+            &copy; {currentYear} INNOVA. {language === 'ar' ? 'جميع الحقوق محفوظة' : 'All rights reserved'}.
           </p>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <a href="#" className="text-muted-foreground text-sm hover:text-white transition-colors">
-              {t('footer.privacy')}
-            </a>
-            <a href="#" className="text-muted-foreground text-sm hover:text-white transition-colors">
-              {t('footer.terms')}
-            </a>
-          </div>
         </div>
       </div>
     </footer>
