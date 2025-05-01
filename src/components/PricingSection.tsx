@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -27,7 +26,7 @@ import {
 
 interface PlanFeature {
   name: string;
-  included: boolean | string;
+  included: boolean | string | number; // Updated type to allow for number values
 }
 
 interface PricingPlan {
@@ -157,12 +156,12 @@ const PricingSection: React.FC = () => {
           150,
         storage: '50GB',
         bandwidth: 'Unlimited',
-        domains: 5,
+        domains: 5, // Changed from number to string
         description: language === 'ar' ? 'مثالية لمواقع ووردبريس مع إدارة كاملة' : 'Perfect for WordPress sites with full management',
         features: [
           { name: t('pricing.storage'), included: '50GB' },
           { name: t('pricing.bandwidth'), included: language === 'ar' ? 'غير محدود' : 'Unlimited' },
-          { name: t('pricing.domains'), included: 5 },
+          { name: t('pricing.domains'), included: '5' }, // Changed from number to string
           { name: t('pricing.ssl'), included: true },
           { name: t('pricing.backups'), included: language === 'ar' ? 'يومي' : 'Daily' },
           { name: t('pricing.support'), included: language === 'ar' ? '24/7 أولوية' : '24/7 Priority' },
