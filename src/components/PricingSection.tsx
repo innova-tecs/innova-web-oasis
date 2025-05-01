@@ -11,7 +11,11 @@ import {
   Shield, 
   ArrowRight, 
   LifeBuoy,
-  ExternalLink 
+  ExternalLink,
+  Code,
+  FileCode,
+  Settings2,
+  CloudCog
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -144,6 +148,48 @@ const PricingSection: React.FC = () => {
           { name: t('pricing.support'), included: '24/7 VIP' },
         ],
         whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن باقة ${language === 'ar' ? 'المؤسسات' : 'Enterprise'}`)}`
+      },
+      // New WordPress Managed Hosting Plan
+      {
+        name: language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress',
+        price: period === 'yearly' ? 
+          Math.round(150 * multiplier * 12) : 
+          150,
+        storage: '50GB',
+        bandwidth: 'Unlimited',
+        domains: 5,
+        description: language === 'ar' ? 'مثالية لمواقع ووردبريس مع إدارة كاملة' : 'Perfect for WordPress sites with full management',
+        features: [
+          { name: t('pricing.storage'), included: '50GB' },
+          { name: t('pricing.bandwidth'), included: language === 'ar' ? 'غير محدود' : 'Unlimited' },
+          { name: t('pricing.domains'), included: 5 },
+          { name: t('pricing.ssl'), included: true },
+          { name: t('pricing.backups'), included: language === 'ar' ? 'يومي' : 'Daily' },
+          { name: t('pricing.support'), included: language === 'ar' ? '24/7 أولوية' : '24/7 Priority' },
+          { name: language === 'ar' ? 'تحديثات تلقائية' : 'Auto Updates', included: true },
+          { name: language === 'ar' ? 'حماية متقدمة' : 'Advanced Security', included: true },
+        ],
+        whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن باقة ${language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress'}`)}`
+      },
+      // New Customizable Plan
+      {
+        name: language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan',
+        price: language === 'ar' ? 'تواصل معنا' : 'Contact Us',
+        storage: language === 'ar' ? 'مخصص' : 'Custom',
+        bandwidth: language === 'ar' ? 'مخصص' : 'Custom',
+        domains: language === 'ar' ? 'مخصص' : 'Custom',
+        description: language === 'ar' ? 'خصص الاستضافة حسب احتياجاتك الفريدة' : 'Tailor hosting to your unique needs',
+        features: [
+          { name: t('pricing.storage'), included: language === 'ar' ? 'مخصص' : 'Custom' },
+          { name: t('pricing.bandwidth'), included: language === 'ar' ? 'مخصص' : 'Custom' },
+          { name: t('pricing.domains'), included: language === 'ar' ? 'مخصص' : 'Custom' },
+          { name: t('pricing.ssl'), included: true },
+          { name: t('pricing.backups'), included: language === 'ar' ? 'مخصص' : 'Custom' },
+          { name: t('pricing.support'), included: language === 'ar' ? 'مخصص' : 'Custom' },
+          { name: language === 'ar' ? 'موارد مخصصة' : 'Custom Resources', included: true },
+          { name: language === 'ar' ? 'حلول مُخصصة' : 'Custom Solutions', included: true },
+        ],
+        whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن ${language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan'}`)}`
       }
     ];
   };
@@ -170,17 +216,25 @@ const PricingSection: React.FC = () => {
           </TabsList>
         </Tabs>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {plans.slice(0, 5).map((plan, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {plans.map((plan, index) => (
             <div
               key={index}
               className={cn(
                 "pricing-card relative border border-border rounded-xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl",
-                plan.mostPopular ? "border-primary shadow-lg shadow-primary/10" : ""
+                plan.mostPopular ? "border-primary shadow-lg shadow-primary/10" : "",
+                plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress') ? "border-green-500 shadow-lg shadow-green-500/10" : "",
+                plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan') ? "border-purple-500 shadow-lg shadow-purple-500/10" : ""
               )}
             >
               {plan.mostPopular && (
                 <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-innova-purple to-innova-blue" />
+              )}
+              {plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress') && (
+                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-green-400 to-green-600" />
+              )}
+              {plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan') && (
+                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-purple-400 to-purple-600" />
               )}
               
               <div className="p-6">
@@ -192,6 +246,16 @@ const PricingSection: React.FC = () => {
                   {plan.mostPopular && (
                     <span className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">
                       {language === 'ar' ? 'الأكثر شعبية' : 'Most Popular'}
+                    </span>
+                  )}
+                  {plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress') && (
+                    <span className="bg-green-500/10 text-green-500 text-xs px-2 py-1 rounded-full">
+                      {language === 'ar' ? 'موصى به' : 'Recommended'}
+                    </span>
+                  )}
+                  {plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan') && (
+                    <span className="bg-purple-500/10 text-purple-500 text-xs px-2 py-1 rounded-full">
+                      {language === 'ar' ? 'مخصص' : 'Custom'}
                     </span>
                   )}
                 </div>
@@ -215,9 +279,19 @@ const PricingSection: React.FC = () => {
                       "w-full group overflow-hidden relative",
                       plan.mostPopular
                         ? "bg-gradient-to-r from-innova-purple to-innova-blue hover:opacity-90"
+                        : plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress')
+                        ? "bg-gradient-to-r from-green-500 to-green-600 hover:opacity-90 text-white"
+                        : plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan')
+                        ? "bg-gradient-to-r from-purple-500 to-purple-600 hover:opacity-90 text-white"
                         : ""
                     )}
-                    variant={plan.mostPopular ? "default" : "outline"}
+                    variant={
+                      plan.mostPopular || 
+                      plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress') || 
+                      plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan') 
+                        ? "default" 
+                        : "outline"
+                    }
                   >
                     {language === 'ar' ? 'احجز الآن' : 'Book Now'}
                     <ExternalLink className={`${dir === 'rtl' ? 'mr-2' : 'ml-2'} h-4 w-4 transition-transform group-hover:translate-x-1`} />
@@ -240,6 +314,22 @@ const PricingSection: React.FC = () => {
                     </li>
                   ))}
                 </ul>
+                
+                {/* Plan-specific icons */}
+                {plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress') && (
+                  <div className="mt-4 pt-4 border-t border-border flex justify-center space-x-3">
+                    <FileCode className="h-5 w-5 text-green-500" />
+                    <Code className="h-5 w-5 text-green-500" />
+                    <Settings2 className="h-5 w-5 text-green-500" />
+                  </div>
+                )}
+                {plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan') && (
+                  <div className="mt-4 pt-4 border-t border-border flex justify-center space-x-3">
+                    <Settings2 className="h-5 w-5 text-purple-500" />
+                    <CloudCog className="h-5 w-5 text-purple-500" />
+                    <Server className="h-5 w-5 text-purple-500" />
+                  </div>
+                )}
               </div>
             </div>
           ))}
