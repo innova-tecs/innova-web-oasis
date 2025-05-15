@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from '@/context/ThemeContext';
+import Logo from './Logo';
 
 const Header: React.FC = () => {
   const { t, language, setLanguage, dir } = useLanguage();
@@ -34,15 +35,7 @@ const Header: React.FC = () => {
     <header className="fixed w-full top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between py-4">
         <div className="flex items-center">
-          <Link to="/" className="flex items-center gap-2">
-            {/* INNOVA Logo */}
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-innova-purple to-innova-blue flex items-center justify-center text-white font-bold">
-              I
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-innova-purple to-innova-blue bg-clip-text text-transparent">
-              INNOVA
-            </span>
-          </Link>
+          <Logo size="md" />
         </div>
 
         {/* Desktop Navigation */}
@@ -103,7 +96,7 @@ const Header: React.FC = () => {
           </DropdownMenu>
 
           <Link to="/pricing">
-            <Button className="bg-gradient-to-r from-innova-purple to-innova-blue hover:opacity-90 transition-opacity hidden md:inline-flex">
+            <Button className="bg-gradient-to-r from-innova-darkBlue via-innova-lightBlue to-innova-violet hover:opacity-90 transition-opacity hidden md:inline-flex">
               {t('hero.cta')}
             </Button>
           </Link>
@@ -157,7 +150,7 @@ const Header: React.FC = () => {
               {t('contact')}
             </Link>
             <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>
-              <Button className="bg-gradient-to-r from-innova-purple to-innova-blue hover:opacity-90 transition-opacity w-full">
+              <Button className="bg-gradient-to-r from-innova-darkBlue via-innova-lightBlue to-innova-violet hover:opacity-90 transition-opacity w-full">
                 {t('hero.cta')}
               </Button>
             </Link>

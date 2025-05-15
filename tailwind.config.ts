@@ -54,10 +54,14 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				innova: {
+					lightBlue: '#5B68F6', // أضفنا لون أزرق فاتح من الشعار
 					purple: '#8B5CF6',
 					indigo: '#6366F1',
 					blue: '#0EA5E9',
 					darkPurple: '#7E69AB',
+					violet: '#9D65EE', // أضفنا لون بنفسجي من الشعار
+					darkBlue: '#3C55F2', // أضفنا لون أزرق داكن من الشعار
+					brightPurple: '#B166F9', // أضفنا لون بنفسجي فاتح من الشعار
 					darkBg: '#0F172A',
 				},
 				sidebar: {
