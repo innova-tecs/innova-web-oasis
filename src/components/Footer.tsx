@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/context/LanguageContext';
 import { Facebook, Twitter, Instagram, Mail, Phone } from 'lucide-react';
+import Logo from './Logo';
 
 const Footer: React.FC = () => {
   const { t, language } = useLanguage();
@@ -14,12 +15,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-innova-purple to-innova-blue flex items-center justify-center text-white font-bold">
-                I
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-innova-purple to-innova-blue bg-clip-text text-transparent">
-                INNOVA
-              </span>
+              <Logo size="sm" />
             </Link>
             <p className="text-muted-foreground mb-4">
               {language === 'ar' 
@@ -83,18 +79,18 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/features" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link to="/vps-hosting" className="text-muted-foreground hover:text-primary transition-colors">
                   {language === 'ar' ? 'استضافة VPS' : 'VPS Hosting'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/dedicated-servers" className="text-muted-foreground hover:text-primary transition-colors">
+                  {language === 'ar' ? 'خوادم مخصصة' : 'Dedicated Servers'}
                 </Link>
               </li>
               <li>
                 <Link to="/features" className="text-muted-foreground hover:text-primary transition-colors">
                   {language === 'ar' ? 'استضافة سحابية' : 'Cloud Hosting'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/features" className="text-muted-foreground hover:text-primary transition-colors">
-                  {language === 'ar' ? 'خوادم مخصصة' : 'Dedicated Servers'}
                 </Link>
               </li>
             </ul>

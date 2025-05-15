@@ -11,6 +11,8 @@ import Pricing from "./pages/Pricing";
 import Features from "./pages/Features";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import VPSHosting from "./pages/VPSHosting";
+import DedicatedServers from "./pages/DedicatedServers";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,8 @@ const App = () => (
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/features" element={<Features />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/vps-hosting" element={<VPSHosting />} />
+              <Route path="/dedicated-servers" element={<DedicatedServers />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

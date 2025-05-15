@@ -23,14 +23,14 @@ const Logo: React.FC<LogoProps> = ({ size = 'md' }) => {
 
   return (
     <Link to="/" className="flex items-center gap-2">
-      <div className={`${logoSizes[size]} overflow-hidden rounded-full`}>
+      <div className={`${logoSizes[size]} overflow-hidden rounded-full bg-white flex items-center justify-center`}>
         <img 
           src="/lovable-uploads/27f05499-d819-4713-8c98-e559ee8afe0f.png" 
           alt="INNOVA Logo" 
           className="w-full h-full object-contain"
         />
       </div>
-      <span className={`${textSizes[size]} font-bold bg-gradient-to-r from-innova-lightBlue via-innova-violet to-innova-brightPurple bg-clip-text text-transparent`}>
+      <span className={`${textSizes[size]} font-bold bg-gradient-to-r from-innova-darkBlue via-innova-lightBlue to-innova-brightPurple bg-clip-text text-transparent`}>
         INNOVA
       </span>
     </Link>
