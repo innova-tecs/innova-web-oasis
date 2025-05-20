@@ -3,7 +3,7 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import Logo from './Logo';
+import { Link } from 'react-router-dom';
 import {
   AutoCarousel,
   CarouselContent,
@@ -50,8 +50,10 @@ const HeroSection: React.FC = () => {
                 {t('hero.cta')}
                 {dir === 'rtl' ? null : <ArrowRight className="ms-2 h-4 w-4" />}
               </Button>
-              <Button size="lg" variant="outline">
-                {t('hero.secondary')}
+              <Button size="lg" variant="outline" asChild>
+                <Link to="/hosting-comparison">
+                  {t('hero.secondary')}
+                </Link>
               </Button>
             </div>
           </div>
