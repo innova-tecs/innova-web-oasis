@@ -4,7 +4,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Server, Compare } from 'lucide-react';
+import { ArrowRight, Server, List } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -82,7 +82,7 @@ const HostingComparison: React.FC = () => {
           {/* Comparison Table Section */}
           <div className="mb-16">
             <div className="flex items-center gap-2 mb-6">
-              <Compare className="h-6 w-6 text-innova-lightBlue" />
+              <List className="h-6 w-6 text-innova-lightBlue" />
               <h2 className="text-2xl font-bold">
                 {t('comparison.tableTitle') || 'مقارنة بين أنواع الاستضافة'}
               </h2>
