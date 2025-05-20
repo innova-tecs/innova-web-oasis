@@ -4,6 +4,32 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Logo from './Logo';
+import {
+  AutoCarousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/auto-carousel";
+
+const serverImages = [
+  {
+    src: "/lovable-uploads/server-rack.jpg",
+    alt: "خوادم ويب متطورة"
+  },
+  {
+    src: "/lovable-uploads/photo-1605810230434-7631ac76ec81",
+    alt: "مركز بيانات"
+  },
+  {
+    src: "/lovable-uploads/photo-1488590528505-98d2b5aba04b",
+    alt: "حاسوب محمول يعرض رموز البرمجة"
+  },
+  {
+    src: "/lovable-uploads/photo-1518770660439-4636190af475",
+    alt: "لوحة دارة كهربائية"
+  }
+];
 
 const HeroSection: React.FC = () => {
   const { t, dir } = useLanguage();
@@ -32,11 +58,25 @@ const HeroSection: React.FC = () => {
           <div className="lg:w-1/2 relative">
             <div className="absolute -z-10 w-72 h-72 blur-3xl rounded-full bg-innova-lightBlue/30 top-0 right-0"></div>
             <div className="relative z-10 rounded-xl overflow-hidden shadow-xl border border-white/10 backdrop-blur-sm">
-              <img 
-                src="/lovable-uploads/server-rack.jpg" 
-                alt="Modern Data Center"
-                className="w-full rounded-xl object-cover"
-              />
+              <AutoCarousel className="w-full" autoplay={true} interval={5000}>
+                <CarouselContent>
+                  {serverImages.map((image, index) => (
+                    <CarouselItem key={index}>
+                      <div className="p-1">
+                        <div className="overflow-hidden rounded-xl">
+                          <img 
+                            src={image.src} 
+                            alt={image.alt}
+                            className="w-full h-[300px] object-cover transition-transform hover:scale-105 duration-500"
+                          />
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="absolute left-2 z-10 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-foreground" />
+                <CarouselNext className="absolute right-2 z-10 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-foreground" />
+              </AutoCarousel>
             </div>
             <div className="absolute -z-10 w-60 h-60 blur-3xl rounded-full bg-innova-violet/20 -bottom-10 -left-10"></div>
           </div>
