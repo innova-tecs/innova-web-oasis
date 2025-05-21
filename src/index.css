@@ -237,6 +237,14 @@
   }
 }
 
+/* Define custom skew utility */
+@layer utilities {
+  .skew-x-30 {
+    --tw-skew-x: 30deg;
+    transform: var(--tw-transform);
+  }
+}
+
 /* Button hover animations */
 .btn-hover-effect {
   @apply relative overflow-hidden;
