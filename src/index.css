@@ -76,10 +76,12 @@
 
   body {
     @apply bg-background text-foreground font-cairo;
+    scroll-behavior: smooth;
   }
 
   html {
     direction: rtl;
+    scroll-behavior: smooth;
   }
 
   html[lang="en"] {
@@ -92,6 +94,23 @@
   
   .rtl {
     direction: rtl;
+  }
+  
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/40 rounded-full transition-colors duration-300;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/60;
   }
 }
 
@@ -135,4 +154,129 @@
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 200ms, transform 200ms;
+}
+
+/* Additional animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes floatShadow {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-floatShadow {
+  animation: floatShadow 6s ease-in-out infinite;
+}
+
+.underline-hover {
+  position: relative;
+}
+
+.underline-hover:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: hsl(var(--primary));
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.underline-hover:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Animated gradient background */
+.animated-gradient-bg {
+  background: linear-gradient(270deg, #5B68F6, #8B5CF6, #B166F9);
+  background-size: 600% 600%;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Button hover animations */
+.btn-hover-effect {
+  @apply relative overflow-hidden;
+}
+
+.btn-hover-effect:before {
+  @apply absolute content-[''] top-0 left-0 w-full h-full bg-white/20 transform -translate-x-full skew-x-30 transition-transform duration-500 ease-out z-10;
+}
+
+.btn-hover-effect:hover:before {
+  @apply transform translate-x-0;
+}
+
+/* Image hover zoom */
+.img-hover-zoom {
+  @apply overflow-hidden;
+}
+
+.img-hover-zoom img {
+  @apply transition-transform duration-500 ease-in-out;
+}
+
+.img-hover-zoom:hover img {
+  @apply transform scale-110;
+}
+
+/* Pulse animation for accents */
+.pulse-accent {
+  animation: pulseAccent 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseAccent {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.hover-scale-102:hover {
+  transform: scale(1.02);
 }
