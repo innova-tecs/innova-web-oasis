@@ -2,7 +2,8 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { Language, LanguageContextType, translations } from './translations';
 
-const LanguageContext = createContext<LanguageContextType>({
+// Create the context with default values
+export const LanguageContext = createContext<LanguageContextType>({
   language: 'ar',
   setLanguage: () => {},
   t: () => '',
@@ -42,5 +43,3 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     </LanguageContext.Provider>
   );
 };
-
-export { LanguageContext, useLanguage } from '@/hooks/useLanguage';
