@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/hooks/useLanguage';
 import { Facebook, Twitter, Instagram, Mail, Phone } from 'lucide-react';
 import Logo from './Logo';
 

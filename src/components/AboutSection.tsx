@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const AboutSection: React.FC = () => {
   const { t } = useLanguage();
