@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Button } from '@/components/ui/button';
 import { 
@@ -27,7 +26,7 @@ import {
 
 interface PlanFeature {
   name: string;
-  included: boolean | string | number; // Updated type to allow for number values
+  included: boolean | string | number;
 }
 
 interface PricingPlan {
@@ -45,6 +44,25 @@ interface PricingPlan {
 const PricingSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
   
   // Example WhatsApp number - replace with actual number
   const whatsAppNumber = "971500000000";
@@ -149,7 +167,6 @@ const PricingSection: React.FC = () => {
         ],
         whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن باقة ${language === 'ar' ? 'المؤسسات' : 'Enterprise'}`)}`
       },
-      // New WordPress Managed Hosting Plan
       {
         name: language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress',
         price: period === 'yearly' ? 
@@ -157,12 +174,12 @@ const PricingSection: React.FC = () => {
           150,
         storage: '50GB',
         bandwidth: 'Unlimited',
-        domains: 5, // Changed from number to string
+        domains: 5,
         description: language === 'ar' ? 'مثالية لمواقع ووردبريس مع إدارة كاملة' : 'Perfect for WordPress sites with full management',
         features: [
           { name: t('pricing.storage'), included: '50GB' },
           { name: t('pricing.bandwidth'), included: language === 'ar' ? 'غير محدود' : 'Unlimited' },
-          { name: t('pricing.domains'), included: '5' }, // Changed from number to string
+          { name: t('pricing.domains'), included: '5' },
           { name: t('pricing.ssl'), included: true },
           { name: t('pricing.backups'), included: language === 'ar' ? 'يومي' : 'Daily' },
           { name: t('pricing.support'), included: language === 'ar' ? '24/7 أولوية' : '24/7 Priority' },
@@ -171,7 +188,6 @@ const PricingSection: React.FC = () => {
         ],
         whatsAppLink: `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(`أود الاستفسار عن باقة ${language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress'}`)}`
       },
-      // New Customizable Plan
       {
         name: language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan',
         price: language === 'ar' ? 'تواصل معنا' : 'Contact Us',
@@ -197,22 +213,24 @@ const PricingSection: React.FC = () => {
   const plans = createPlans(billingPeriod);
   
   return (
-    <section id="pricing" className="py-20">
+    <section id="pricing" className="py-20" ref={sectionRef}>
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('pricing.title')}</h2>
+        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'animate-[titleSlideUp_1s_ease-out_forwards] opacity-100' : 'opacity-0 translate-y-8'}`}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-innova-darkBlue to-innova-brightPurple bg-clip-text text-transparent">
+            {t('pricing.title')}
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">{t('pricing.subtitle')}</p>
-          <div className="w-24 h-1 bg-gradient-to-r from-innova-purple to-innova-blue mx-auto mt-4"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-innova-purple to-innova-blue mx-auto mt-4 animate-[lineGrow_1.5s_ease-out_0.5s_forwards] scale-x-0"></div>
         </div>
         
         <Tabs 
           defaultValue="monthly" 
-          className="w-full max-w-md mx-auto mb-10"
+          className={`w-full max-w-md mx-auto mb-10 transition-all duration-1000 delay-300 ${isVisible ? 'animate-[tabsSlideUp_0.8s_ease-out_0.3s_forwards] opacity-100' : 'opacity-0 translate-y-6'}`}
           onValueChange={(value) => setBillingPeriod(value as 'monthly' | 'yearly')}
         >
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="monthly">{t('pricing.monthly')}</TabsTrigger>
-            <TabsTrigger value="yearly">{t('pricing.yearly')}</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 transition-all duration-300 hover:shadow-lg">
+            <TabsTrigger value="monthly" className="transition-all duration-300">{t('pricing.monthly')}</TabsTrigger>
+            <TabsTrigger value="yearly" className="transition-all duration-300">{t('pricing.yearly')}</TabsTrigger>
           </TabsList>
         </Tabs>
         
@@ -221,40 +239,45 @@ const PricingSection: React.FC = () => {
             <div
               key={index}
               className={cn(
-                "pricing-card relative border border-border rounded-xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl",
+                `pricing-card relative border border-border rounded-xl overflow-hidden transition-all duration-700 hover:scale-105 hover:shadow-2xl transform ${
+                  isVisible 
+                    ? 'animate-[pricingCardSlideUp_0.8s_ease-out_calc(0.6s+var(--index)*0.1s)_forwards] opacity-100' 
+                    : 'opacity-0 translate-y-12'
+                }`,
                 plan.mostPopular ? "border-primary shadow-lg shadow-primary/10" : "",
                 plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress') ? "border-green-500 shadow-lg shadow-green-500/10" : "",
                 plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan') ? "border-purple-500 shadow-lg shadow-purple-500/10" : ""
               )}
+              style={{"--index": index} as React.CSSProperties}
             >
               {plan.mostPopular && (
-                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-innova-purple to-innova-blue" />
+                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-innova-purple to-innova-blue animate-[shimmer_2s_ease-in-out_infinite]" />
               )}
               {plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress') && (
-                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-green-400 to-green-600" />
+                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-green-400 to-green-600 animate-[shimmer_2s_ease-in-out_infinite]" />
               )}
               {plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan') && (
-                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-purple-400 to-purple-600" />
+                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-purple-400 to-purple-600 animate-[shimmer_2s_ease-in-out_infinite]" />
               )}
               
               <div className="p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+                    <h3 className="text-xl font-bold mb-2 transition-colors duration-300 hover:text-primary">{plan.name}</h3>
                     <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
                   </div>
                   {plan.mostPopular && (
-                    <span className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">
+                    <span className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full animate-[badgePulse_2s_ease-in-out_infinite]">
                       {language === 'ar' ? 'الأكثر شعبية' : 'Most Popular'}
                     </span>
                   )}
                   {plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress') && (
-                    <span className="bg-green-500/10 text-green-500 text-xs px-2 py-1 rounded-full">
+                    <span className="bg-green-500/10 text-green-500 text-xs px-2 py-1 rounded-full animate-[badgePulse_2s_ease-in-out_infinite]">
                       {language === 'ar' ? 'موصى به' : 'Recommended'}
                     </span>
                   )}
                   {plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan') && (
-                    <span className="bg-purple-500/10 text-purple-500 text-xs px-2 py-1 rounded-full">
+                    <span className="bg-purple-500/10 text-purple-500 text-xs px-2 py-1 rounded-full animate-[badgePulse_2s_ease-in-out_infinite]">
                       {language === 'ar' ? 'مخصص' : 'Custom'}
                     </span>
                   )}
@@ -262,7 +285,7 @@ const PricingSection: React.FC = () => {
                 
                 {typeof plan.price === 'number' ? (
                   <div className="flex items-baseline mb-4">
-                    <span className="text-3xl font-bold">{plan.price}</span>
+                    <span className="text-3xl font-bold animate-[priceCount_2s_ease-out_calc(0.8s+var(--index)*0.1s)_forwards]">{plan.price}</span>
                     <span className="text-muted-foreground ms-2">
                       {t('pricing.sar')}/{billingPeriod === 'monthly' ? t('pricing.monthly').toLowerCase() : t('pricing.yearly').toLowerCase()}
                     </span>
@@ -276,7 +299,7 @@ const PricingSection: React.FC = () => {
                 <a href={plan.whatsAppLink} target="_blank" rel="noopener noreferrer" className="block w-full mb-6">
                   <Button
                     className={cn(
-                      "w-full group overflow-hidden relative",
+                      "w-full group overflow-hidden relative transition-all duration-500 hover:shadow-lg animate-[ctaButtonZoom_0.6s_ease-out_calc(1s+var(--index)*0.05s)_forwards] scale-95 opacity-0",
                       plan.mostPopular
                         ? "bg-gradient-to-r from-innova-purple to-innova-blue hover:opacity-90"
                         : plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress')
@@ -300,7 +323,7 @@ const PricingSection: React.FC = () => {
                 
                 <ul className="space-y-3">
                   {plan.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex items-center gap-2">
+                    <li key={fIndex} className={`flex items-center gap-2 animate-[featureItemSlide_0.5s_ease-out_calc(1.2s+var(--fIndex)*0.05s)_forwards] opacity-0 translate-x-4`} style={{"--fIndex": fIndex} as React.CSSProperties}>
                       {feature.included === true ? (
                         <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
                       ) : feature.included === false ? (
@@ -318,16 +341,16 @@ const PricingSection: React.FC = () => {
                 {/* Plan-specific icons */}
                 {plan.name === (language === 'ar' ? 'ووردبريس المُدارة' : 'Managed WordPress') && (
                   <div className="mt-4 pt-4 border-t border-border flex justify-center space-x-3">
-                    <FileCode className="h-5 w-5 text-green-500" />
-                    <Code className="h-5 w-5 text-green-500" />
-                    <Settings2 className="h-5 w-5 text-green-500" />
+                    <FileCode className="h-5 w-5 text-green-500 animate-[iconBounce_2s_ease-in-out_infinite]" />
+                    <Code className="h-5 w-5 text-green-500 animate-[iconBounce_2s_ease-in-out_infinite_0.3s]" />
+                    <Settings2 className="h-5 w-5 text-green-500 animate-[iconBounce_2s_ease-in-out_infinite_0.6s]" />
                   </div>
                 )}
                 {plan.name === (language === 'ar' ? 'الباقة المخصصة' : 'Custom Plan') && (
                   <div className="mt-4 pt-4 border-t border-border flex justify-center space-x-3">
-                    <Settings2 className="h-5 w-5 text-purple-500" />
-                    <CloudCog className="h-5 w-5 text-purple-500" />
-                    <Server className="h-5 w-5 text-purple-500" />
+                    <Settings2 className="h-5 w-5 text-purple-500 animate-[iconBounce_2s_ease-in-out_infinite]" />
+                    <CloudCog className="h-5 w-5 text-purple-500 animate-[iconBounce_2s_ease-in-out_infinite_0.3s]" />
+                    <Server className="h-5 w-5 text-purple-500 animate-[iconBounce_2s_ease-in-out_infinite_0.6s]" />
                   </div>
                 )}
               </div>
