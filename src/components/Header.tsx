@@ -58,12 +58,12 @@ const Header: React.FC = () => {
           >
             {t('pricing')}
           </Link>
-          <Link 
-            to="/#faq" 
+          <a 
+            href="#faq" 
             className={`transition-colors text-foreground hover:text-primary`}
           >
             {t('faq.menu')}
-          </Link>
+          </a>
           <Link 
             to="/contact" 
             className={`transition-colors ${isActive('/contact') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}
@@ -148,13 +148,13 @@ const Header: React.FC = () => {
             >
               {t('pricing')}
             </Link>
-            <Link 
-              to="/#faq" 
+            <a 
+              href="#faq" 
               className={`px-4 py-2 transition-colors text-foreground hover:text-primary`}
               onClick={() => setMobileMenuOpen(false)}
             >
               {t('faq.menu')}
-            </Link>
+            </a>
             <Link 
               to="/contact" 
               className={`px-4 py-2 transition-colors ${isActive('/contact') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}
