@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -31,6 +30,16 @@ const Header: React.FC = () => {
     return location.pathname === path;
   };
 
+  const handleFAQClick = () => {
+    if (location.pathname !== '/') {
+      // إذا لم نكن في الصفحة الرئيسية، انتقل إليها أولاً
+      window.location.href = '/#faq';
+    } else {
+      // إذا كنا في الصفحة الرئيسية، انتقل مباشرة إلى القسم
+      document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="fixed w-full top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between py-4">
@@ -58,12 +67,12 @@ const Header: React.FC = () => {
           >
             {t('pricing')}
           </Link>
-          <a 
-            href="#faq" 
-            className={`transition-colors text-foreground hover:text-primary`}
+          <button 
+            onClick={handleFAQClick}
+            className={`transition-colors text-foreground hover:text-primary cursor-pointer bg-transparent border-none text-inherit font-inherit`}
           >
             {t('faq.menu')}
-          </a>
+          </button>
           <Link 
             to="/contact" 
             className={`transition-colors ${isActive('/contact') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}
@@ -148,13 +157,15 @@ const Header: React.FC = () => {
             >
               {t('pricing')}
             </Link>
-            <a 
-              href="#faq" 
-              className={`px-4 py-2 transition-colors text-foreground hover:text-primary`}
-              onClick={() => setMobileMenuOpen(false)}
+            <button 
+              onClick={() => {
+                handleFAQClick();
+                setMobileMenuOpen(false);
+              }}
+              className={`px-4 py-2 transition-colors text-foreground hover:text-primary text-left bg-transparent border-none font-inherit`}
             >
               {t('faq.menu')}
-            </a>
+            </button>
             <Link 
               to="/contact" 
               className={`px-4 py-2 transition-colors ${isActive('/contact') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}
