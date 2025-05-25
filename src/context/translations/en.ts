@@ -1,4 +1,3 @@
-
 // English translations
 const en = {
   'home': 'Home',
@@ -68,6 +67,7 @@ const en = {
   'testimonials.subtitle': 'Hear what our customers say about our services',
   'faq.title': 'Frequently Asked Questions',
   'faq.subtitle': 'Answers to the most common questions',
+  'faq.menu': 'FAQ',
   'faq.q1': 'What hosting services do you offer?',
   'faq.a1': 'We offer a variety of hosting services including shared hosting, VPS hosting, and dedicated server hosting. Each plan comes with different features to suit your needs.',
   'faq.q2': 'Can I upgrade my plan in the future?',

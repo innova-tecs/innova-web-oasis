@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import VPSHosting from "./pages/VPSHosting";
 import DedicatedServers from "./pages/DedicatedServers";
 import HostingComparison from "./pages/HostingComparison";
+import FAQ from "./pages/FAQ";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +29,7 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/features" element={<Features />} />
+              <Route path="/faq" element={<FAQ />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/vps-hosting" element={<VPSHosting />} />
               <Route path="/dedicated-servers" element={<DedicatedServers />} />
