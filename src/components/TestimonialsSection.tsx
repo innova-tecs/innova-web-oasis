@@ -73,12 +73,12 @@ const TestimonialsSection: React.FC = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-20 bg-secondary/5">
+    <section id="testimonials" className="py-20 bg-secondary/5 scroll-mt-16">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('testimonials.title')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">{t('testimonials.subtitle')}</p>
-          <div className="w-24 h-1 bg-gradient-to-r from-innova-purple to-innova-blue mx-auto mt-4"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-innova-purple to-innova-blue mx-auto mt-4 animate-[pulse_3s_ease-in-out_infinite]"></div>
         </div>
         
         <Carousel
@@ -86,26 +86,32 @@ const TestimonialsSection: React.FC = () => {
             align: "start",
             loop: true,
           }}
-          className="w-full max-w-5xl mx-auto"
+          className="w-full max-w-5xl mx-auto animate-[scale-in_0.6s_ease-out_0.2s_both]"
         >
           <CarouselContent>
-            {testimonials.map((testimonial) => (
-              <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3 p-2">
-                <Card className="h-full">
+            {testimonials.map((testimonial, index) => (
+              <CarouselItem 
+                key={testimonial.id} 
+                className="md:basis-1/2 lg:basis-1/3 p-2 transition-opacity duration-300"
+              >
+                <Card className="h-full transition-all duration-300 hover:shadow-lg hover:transform hover:scale-105">
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex items-center mb-4">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
-                          className={`h-4 w-4 ${
-                            i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                          className={`h-4 w-4 transition-all duration-300 ${
+                            i < testimonial.rating 
+                              ? "text-yellow-400 fill-yellow-400 animate-[pulse_2s_ease-in-out_infinite]" 
+                              : "text-gray-300"
                           }`}
+                          style={{ animationDelay: `${i * 0.1}s` }}
                         />
                       ))}
                     </div>
                     <p className="text-muted-foreground mb-6 flex-grow">{testimonial.content}</p>
                     <div className="flex items-center gap-3">
-                      <Avatar>
+                      <Avatar className="border-2 border-primary/30 transition-transform duration-300 hover:scale-110">
                         <AvatarImage src={testimonial.avatar} />
                         <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                       </Avatar>
@@ -122,8 +128,8 @@ const TestimonialsSection: React.FC = () => {
             ))}
           </CarouselContent>
           <div className="flex justify-center mt-8 gap-2">
-            <CarouselPrevious className="relative -translate-y-0 static" />
-            <CarouselNext className="relative -translate-y-0 static" />
+            <CarouselPrevious className="relative -translate-y-0 static transition-transform duration-300 hover:scale-110" />
+            <CarouselNext className="relative -translate-y-0 static transition-transform duration-300 hover:scale-110" />
           </div>
         </Carousel>
       </div>

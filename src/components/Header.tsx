@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -56,6 +57,12 @@ const Header: React.FC = () => {
             className={`transition-colors ${isActive('/pricing') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}
           >
             {t('pricing')}
+          </Link>
+          <Link 
+            to="/#faq" 
+            className={`transition-colors text-foreground hover:text-primary`}
+          >
+            {t('faq.menu')}
           </Link>
           <Link 
             to="/contact" 
@@ -140,6 +147,13 @@ const Header: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               {t('pricing')}
+            </Link>
+            <Link 
+              to="/#faq" 
+              className={`px-4 py-2 transition-colors text-foreground hover:text-primary`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t('faq.menu')}
             </Link>
             <Link 
               to="/contact" 
